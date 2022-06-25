@@ -1,0 +1,207 @@
+﻿@{
+    var lstMenus = Html.GetAccessibleMenus();
+    var lstFirst = lstMenus.Where(x => x.ParentMenuID == null).OrderBy(x => x.DisplaySequence).ToList();
+}
+
+@helper ThirdLevel(List<RuwanaAcademy_Enterprise.Common.DB.Menu> FullList, int menuID, int level)
+{
+    var lst = FullList.Where(x => x.ParentMenuID == menuID).OrderBy(x => x.DisplaySequence).ToList();
+
+    foreach (var item in lst)
+    {
+        if (item.Type == "I")
+        {
+            <li role="menuitem">@Html.ActionLink(item.Text, item.Action, item.Controller, new { area = item.Area }, new { })</li>
+        }
+        else if (item.Type == "D")
+        {
+            <li role="menuitem" class="divider"></li>
+        }
+        else if (item.Type == "M")
+        {
+            <li class="dropdown-submenu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">@item.Text</a>
+                <ul class="dropdown-menu menu-ul-color" role="menu" aria-labelledby="@level.ToString()">
+                    @ThirdLevel(FullList, item.MenuID, level + 1)
+                </ul>
+            </li>
+        }
+    }
+}
+
+@helper SecondLevel(List<RuwanaAcademy_Enterprise.Common.DB.Menu> FullList, int menuID)
+{
+    var lst = FullList.Where(x => x.ParentMenuID == menuID).OrderBy(x => x.DisplaySequence).ToList();
+
+    foreach (var item in lst)
+    {
+        if (item.Type == "I")
+        {
+            <li role="menuitem">@Html.ActionLink(item.Text, item.Action, item.Controller, new { area = item.Area }, new { })</li>
+        }
+        else if (item.Type == "D")
+        {
+            <li class="divider"></li>
+        }
+        else if (item.Type == "M")
+        {
+            <li class="dropdown-submenu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">@item.Text</a>
+                <ul class="dropdown-menu menu-ul-color" role="menu" aria-labelledby="sec">
+                    @ThirdLevel(FullList, item.MenuID, 3)
+                </ul>
+            </li>
+        }
+    }
+}
+
+@helper FirstLevel(List<RuwanaAcademy_Enterprise.Common.DB.Menu> lstMenus, bool isSub)
+{
+    var lstFirst = lstMenus.Where(x => x.ParentMenuID == null).OrderBy(x => x.DisplaySequence).ToList();
+
+    if (lstFirst.Count > 0)
+    {
+        @*<li class="divider-vertical"></li>*@
+    }
+
+    foreach (var item in lstFirst)
+    {
+        if (item.Type == "I")
+        {
+            <li role="menuitem">@Html.ActionLink(item.Text, item.Action, item.Controller, new { area = item.Area }, new { })</li>
+        }
+        else if (item.Type == "M")
+        {
+            if (isSub)
+            {
+                <li class="dropdown-submenu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">@item.Text</a>
+                    <ul class="dropdown-menu menu-ul-color" role="menu" aria-labelledby="top">
+                        @SecondLevel(lstMenus, item.MenuID)
+                    </ul>
+                </li>
+            }
+            else
+            {
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">@item.Text <b class="caret"></b></a>
+                    <ul class="dropdown-menu menu-ul-color" role="menu" aria-labelledby="top">
+                        @SecondLevel(lstMenus, item.MenuID)
+                    </ul>
+                </li>
+            }
+        }
+        else if (item.Type == "D" && isSub)
+        {
+            if (isSub)
+            {
+                <li class="divider"></li>
+            }
+            else
+            {
+                @*<li class="divider-vertical"></li>*@
+            }
+        }
+
+    }
+}
+
+@*<ul class="nav navbar-nav">
+        @{
+            if (lstFirst.Count > 1)
+            {
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-chevron-down"></span></a>
+                    <ul class="dropdown-menu menu-ul-color" role="menu" aria-labelledby="top">
+                        @FirstLevel(lstMenus, true)
+                    </ul>
+                </li>
+            }
+            else
+            {
+                @FirstLevel(lstMenus, false)
+            }
+        }
+    </ul>*@
+
+
+<ul class="nav navbar-nav side-nav navbar-inverse">
+    @{
+        if (lstFirst.Count > 1)
+        {
+            <li>
+                @foreach (var item in lstFirst)
+                {
+                    var secList = lstMenus.Where(x => x.ParentMenuID == item.MenuID).OrderBy(x => x.DisplaySequence).ToList();
+                    if (secList.Count == 0)
+                    {
+                        @Html.ActionLink(item.Text, item.Action, item.Controller, new { area = item.Area }, new { })
+                    }
+                    else
+                    {
+                <div>
+                    <a href="#" data-toggle="collapse" data-target="#@item.MenuID">
+                        @item.Text&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="navbar-inverse glyphicon glyphicon-menu-down pull-right"></i>
+                    </a>
+                </div>
+                    }
+                     <h6 class="nav-divider"></h6>
+                    <ul id="@item.MenuID" class="collapse" role="menu" aria-labelledby="top">
+
+                        @if (secList.Count > 0)
+                        {
+                            foreach (var secItem in secList)
+                            {
+                                var thirdList = lstMenus.Where(x => x.ParentMenuID == secItem.MenuID).OrderBy(x => x.DisplaySequence).ToList();
+                                <li>
+                                    @if (thirdList.Count > 0)
+                                    {
+                                    <a href="#" data-toggle="collapse" data-target="#@secItem.MenuID">
+                                        <i class="fa fa-fw fa-search"></i>@secItem.Text
+                                        <i class="navbar-inverse glyphicon glyphicon-menu-down pull-right"></i>
+                                    </a>
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink(secItem.Text, secItem.Action, secItem.Controller, new { area = secItem.Area }, new { })
+                                    }
+                                     <h6 class="nav-divider"></h6>
+                                    <ul id="@secItem.MenuID" class="collapse" role="menu" aria-labelledby="top">
+                                        @if (thirdList.Count > 0)
+                                        {
+                                            foreach (var thirdItem in thirdList)
+                                            {
+                                                var fourthList = lstMenus.Where(x => x.ParentMenuID == thirdItem.MenuID).OrderBy(x => x.DisplaySequence).ToList();
+                                                <li class="waves-effect" style="border:thick">
+                                                    @if (fourthList.Count > 0)
+                                                    {
+                                                    <a href="#" data-toggle="collapse" data-target="#@thirdItem.MenuID">
+                                                        <i class="fa fa-fw fa-search"></i>@thirdItem.Text&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;<i class="navbar-inverse glyphicon glyphicon-menu-down pull-right"></i>
+                                                    </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.ActionLink(thirdItem.Text, thirdItem.Action, thirdItem.Controller, new { area = thirdItem.Area }, new { })
+                                                    }
+                                                    <h6 class="nav-divider"></h6>
+                                                </li>
+                                            }
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                        }
+                    </ul>
+                }
+            </li>
+        }
+        else
+        {
+            @FirstLevel(lstMenus, false)
+        }
+    }
+</ul>

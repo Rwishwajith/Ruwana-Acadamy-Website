@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1d8885374b0d4ffd9079e75996038813" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="dbRuwanaAcademyEnterpriseModel.Class" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbRuwanaAcademyEnterpriseModel.ClassRegistration" Width="1.5" PointX="5.25" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbRuwanaAcademyEnterpriseModel.Employee" Width="1.5" PointX="12.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbRuwanaAcademyEnterpriseModel.LecturerPaymentDetail" Width="1.5" PointX="7.5" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbRuwanaAcademyEnterpriseModel.LecturerPayment" Width="1.5" PointX="5.25" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbRuwanaAcademyEnterpriseModel.LecturerRate" Width="1.5" PointX="3" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbRuwanaAcademyEnterpriseModel.Lecturer" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbRuwanaAcademyEnterpriseModel.Menu" Width="1.5" PointX="9.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbRuwanaAcademyEnterpriseModel.Parameter" Width="1.5" PointX="9.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbRuwanaAcademyEnterpriseModel.Role" Width="1.5" PointX="12" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbRuwanaAcademyEnterpriseModel.RoleTile" Width="1.5" PointX="14.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbRuwanaAcademyEnterpriseModel.StudentPaymentDetail" Width="1.5" PointX="7.5" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbRuwanaAcademyEnterpriseModel.StudentPayment" Width="1.5" PointX="5.25" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbRuwanaAcademyEnterpriseModel.Student" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbRuwanaAcademyEnterpriseModel.Subject" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbRuwanaAcademyEnterpriseModel.UserRole" Width="1.5" PointX="17.25" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbRuwanaAcademyEnterpriseModel.User" Width="1.5" PointX="15" PointY="7.125" IsExpanded="true" />
+        <AssociationConnector Association="dbRuwanaAcademyEnterpriseModel.FK_ClassesLecturers" ManuallyRouted="false" />
+        <AssociationConnector Association="dbRuwanaAcademyEnterpriseModel.FK_ClassesSubjects" ManuallyRouted="false" />
+        <AssociationConnector Association="dbRuwanaAcademyEnterpriseModel.FK_ClassRegistrationsClasses" ManuallyRouted="false" />
+        <AssociationConnector Association="dbRuwanaAcademyEnterpriseModel.FK_LecturerPaymentDetailsClasses" ManuallyRouted="false" />
+        <AssociationConnector Association="dbRuwanaAcademyEnterpriseModel.FK_ClassRegistrationsStudents" ManuallyRouted="false" />
+        <AssociationConnector ManuallyRouted="false" Association="dbRuwanaAcademyEnterpriseModel.FK_StudentPaymentDetailsClassRegistrations" />
+        <AssociationConnector Association="dbRuwanaAcademyEnterpriseModel.FK_EmployeesUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="dbRuwanaAcademyEnterpriseModel.FK_LecturerPaymentDetailsLecturerPayments" ManuallyRouted="false" />
+        <AssociationConnector Association="dbRuwanaAcademyEnterpriseModel.FK_LecturerPaymentsLecturers" ManuallyRouted="false" />
+        <AssociationConnector Association="dbRuwanaAcademyEnterpriseModel.FK_LecturerRatesLecturers" ManuallyRouted="false" />
+        <AssociationConnector Association="dbRuwanaAcademyEnterpriseModel.FK_MenusMenus" ManuallyRouted="false" />
+        <AssociationConnector Association="dbRuwanaAcademyEnterpriseModel.FK_RoleTilesRoles" ManuallyRouted="false" />
+        <AssociationConnector Association="dbRuwanaAcademyEnterpriseModel.FK_UserRolesRoles" ManuallyRouted="false" />
+        <AssociationConnector Association="dbRuwanaAcademyEnterpriseModel.FK_StudentPaymentDetailsStudentPayments" ManuallyRouted="false" />
+        <AssociationConnector Association="dbRuwanaAcademyEnterpriseModel.FK_StudentPaymentsStudents" ManuallyRouted="false" />
+        <AssociationConnector Association="dbRuwanaAcademyEnterpriseModel.FK_UserRolesUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="dbRuwanaAcademyEnterpriseModel.RoleMenuAccesses" ManuallyRouted="false" />
+        <AssociationConnector Association="dbRuwanaAcademyEnterpriseModel.FK_LecturerRatesSujbects" />
+        <EntityTypeShape EntityType="dbRuwanaAcademyEnterpriseModel.HallAllocation" Width="1.5" PointX="10.25" PointY="9.25" />
+        <EntityTypeShape EntityType="dbRuwanaAcademyEnterpriseModel.Hall" Width="1.5" PointX="8" PointY="14.375" />
+        <AssociationConnector Association="dbRuwanaAcademyEnterpriseModel.FK_HallAllocationsClasses" />
+        <AssociationConnector Association="dbRuwanaAcademyEnterpriseModel.FK_HallAllocationsHalls" />
+        <AssociationConnector Association="dbRuwanaAcademyEnterpriseModel.FK_LecturerPaymentDetailsLecturerRates" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

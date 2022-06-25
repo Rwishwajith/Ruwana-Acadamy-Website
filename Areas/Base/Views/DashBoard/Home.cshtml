@@ -1,0 +1,182 @@
+﻿@model RuwanaAcademy_Enterprise.Areas.Base.Models.DashBoardVM
+@{
+    ViewBag.Title = "Home";
+}
+<link rel="stylesheet" href="~/Content/ChartsStyle.css" type="text/css" />
+@section scripts {
+    <script>
+        $('button').click(function () {
+            $(this).text(function (i, old) {
+                return old == '-' ? '+' : '-';
+            });
+        });
+        $('#collapseOne,#collapseTwo,#collapseThree,#collapseFour,#collapseFive,#collapseSix,#collapseSeven,#collapseEight').collapse({
+            toggle: true
+        })
+    </script>
+}
+
+<body style="background-color: #1E1A19;">
+    <div class="container-fluid">
+        <div class="container-fill">
+            <div class="row" style="padding-left:30px;">
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <div class="breadcrumb-3">
+                                    <h3>Student Count - Class Type Wise</h3>
+                                    <button class="btn btn-sm" data-toggle="collapse" data-target="#collapseOne" style="font-weight: bold; background-color: white;">-</button>
+                                </div>
+                            </div>
+                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="card-3">
+                                    <div class="card-body">
+                                        <canvas id="chart1" width="800" height="405"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <div class="breadcrumb-3">
+                                    <h3>Total Income - Class Type Wise</h3>
+                                    <button class="btn btn-sm" data-toggle="collapse" data-target="#collapseTwo" style="font-weight: bold; background-color: white;">-</button>
+                                </div>
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="card-3">
+                                    <div class="card-body">
+                                        <canvas id="chart2" width="800" height="405"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <div class="breadcrumb-3">
+                                    <h3>Class Count - Class Type Wise</h3>
+                                    <button class="btn btn-sm" data-toggle="collapse" data-target="#collapseThree" style="font-weight: bold; background-color: white;">-</button>
+                                </div>
+                            </div>
+                            <div id="collapseThree" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="card-3">
+                                    <div class="card-body">
+                                        <canvas id="chart3" width="800" height="405"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding-left:40px">
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <div class="card-10">
+                            <div class="row">
+                                <div>
+                                    <div class="text-center" style="padding:10px">
+                                        <h4>@Model.TotalStudents</h4>
+                                        <h5>Total Students</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card-10">
+                            <div class="row">
+                                <div>
+                                    <div class="text-center" style="padding:10px">
+                                        <h4>@Model.TotalIncome</h4>
+                                        <h5>Total Income</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card-10">
+                            <div class="row">
+                                <div>
+                                    <div class="text-center" style="padding:10px">
+                                        <h4>@Model.TotalClassCount</h4>
+                                        <h5>Total Classes</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding-left:30px; padding-top:10px">
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <div class="breadcrumb-3">
+                                    <h3>New Enrollments of This Month</h3>
+                                    <button class="btn btn-sm" data-toggle="collapse" data-target="#collapseFour" style="font-weight: bold; background-color: white;">-</button>
+                                </div>
+                            </div>
+                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="card-3">
+                                    <div class="card-body">
+                                        <canvas id="chart5" width="800" height="405"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <div class="breadcrumb-3">
+                                    <h3>Student Count - Lecturer Wise</h3>
+                                    <button class="btn btn-sm" data-toggle="collapse" data-target="#collapseFive" style="font-weight: bold; background-color: white;">-</button>
+                                </div>
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="card-3">
+                                    <div class="card-body">
+                                        <canvas id="chart4" width="800" height="405"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <div class="breadcrumb-3">
+                                    <h3>Lecturer Payments - Class Type Wise</h3>
+                                    <button class="btn btn-sm" data-toggle="collapse" data-target="#collapseSix" style="font-weight: bold; background-color: white;">-</button>
+                                </div>
+                            </div>
+                            <div id="collapseThree" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="card-3">
+                                    <div class="card-body">
+                                        <canvas id="chart6" width="800" height="405"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+@Html.CreateChart("chart1", Model.StudentCount)
+@Html.CreateChart("chart2", Model.TotalIncomeClassTypeWise)
+@Html.CreateChart("chart3", Model.ClassCountByClassType)
+@Html.CreateChart("chart4", Model.GetStudentCountLecturerWise)
+@Html.CreateChart("chart5", Model.GetStudentCountForThisMonth)
+@Html.CreateChart("chart6", Model.GetLecturePaymentsForThisMonth)

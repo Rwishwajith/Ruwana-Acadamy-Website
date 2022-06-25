@@ -1,0 +1,52 @@
+﻿@model IEnumerable<RuwanaAcademy_Enterprise.Areas.Admin.Models.UserRoleVM>
+
+<hr />
+<h3>Roles</h3>
+
+<table class="mGrid">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RoleName)
+            </th>
+            @{
+                if (ViewBag.IsToEdit)
+                {
+                    <th class="btn-1">
+                        @Html.NoEncodeActionLink("<span style='color:white'>Add</span>", "Add", "ChildCreate", routeValues: new { userID = ViewBag.UserID }, htmlAttributes: new { data_popup_editor = "", @class = "btn btn-primary pull-right btn-sm", data_title = "Create User Role" })
+                    </th>
+                }
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoleName)
+                </td>
+                @{
+                    if (ViewBag.IsToEdit)
+                    {
+                        <td class="btn-2">
+                            <div class="btn-toolbar pull-right">
+                                @using (Html.BeginForm("ChildDelete", "Users", new { id = item.UserRoleID }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.ConfirmSubmitButton("<span class='glyphicon glyphicon-trash'>Delete</span>", "Are you sure you want to delete?", "Confirm user role deletion",
+                                        "<span class='glyphicon glyphicon-trash'></span> Delete", new { data_popup_delete = "", @class = "btn btn-danger btn-sm" })
+                                }
+                            </div>
+                        </td>
+                    }
+                }
+            </tr>
+                    }
+    </tbody>
+</table>
+
+@if (ViewBag.IsToEdit)
+{
+    Html.RenderPartial("~/Areas/Base/Views/Shared/_PartialAlert.cshtml");
+}

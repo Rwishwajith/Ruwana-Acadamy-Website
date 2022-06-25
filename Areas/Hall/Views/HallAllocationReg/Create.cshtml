@@ -1,0 +1,101 @@
+﻿@model RuwanaAcademy_Enterprise.Areas.Hall.Models.HallAllocationVM
+
+
+@{
+    ViewBag.Title = "Create Hall Allocation";
+}
+
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        <hr style="border-color:black" />
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.HallAllocationID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HallID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.PopUpSelectorFor(model => model.HallID, "Base", "Data", "GetHall", new { @class = "form-control" }, "Please select a Hall.", dspFormat: "{1}", hiddenIndices: "0,2")
+                @Html.ValidationMessageFor(model => model.HallID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ClassID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.PopUpSelectorFor(model => model.ClassID, "Base", "Data", "GetClass", new { @class = "form-control" }, "Please select a Class.", dspFormat: "{1}", hiddenIndices: "0,7")
+                @Html.ValidationMessageFor(model => model.ClassID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ScheduleDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ScheduleDate, new { htmlAttributes = new { @class = "form-control", type = "JQ-date" } })
+                @Html.ValidationMessageFor(model => model.ScheduleDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StartTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EndTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <br />
+
+        <div>
+            <p>
+                <input id="btnSave" type="submit" value="Save" class="btn btn-primary col-md-1 col-md-offset-10" style="min-width:75px" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </p>
+        </div>
+    </div>
+
+    @Html.AntiForgeryToken()
+
+    <br />
+
+    <div>
+        @Html.ActionLink("Back to Index Page", "Index")
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script >
+        
+        $.ajaxSetup({ cache: false });
+
+        function HallDocReadyFunc() {
+            DocReadyFunc();
+                var objClass = $('#ClassID');
+                objClass.change(function () {
+                    $.getJSON(AppRoot + "Hall/HallAllocationReg/GetClassStartTimeAndEndTime", { classID: Number(objClass.val()) }, function (jsn) {
+                        $('#StartTime').val(jsn.startTime);
+                        $('#EndTime').val(jsn.endTime);
+                    }).error(function (data, status, jqXHR) {
+                        if (IsJson(data.responseText)) { AlertIt("ERROR: " + JSON.parse(data.responseText).Message); }
+                        else { AlertIt("ERROR: " + data.statusText); }
+                    });
+                });
+        }
+        $(function () {
+
+            HallDocReadyFunc();
+
+        });
+    </script>
+}
+

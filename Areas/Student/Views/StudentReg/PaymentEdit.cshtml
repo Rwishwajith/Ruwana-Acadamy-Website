@@ -1,0 +1,108 @@
+﻿@model RuwanaAcademy_Enterprise.Areas.Student.Models.ClassRegVM
+@{
+    ViewBag.Title = "Payments To Be Paid";
+}
+
+<hr style="border-color:black" />
+<br />
+
+@using (Html.BeginForm("PrintInvoice", "StudentReg"))
+{
+    @Html.HiddenFor(model => model.ClassRegID)
+    @Html.HiddenFor(model => model.StudentID)
+    @Html.HiddenFor(model => model.StudPaymentID)
+    @Html.HiddenFor(model => model.RowVersion)
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <p>
+
+        <div class="btn-toolbar">
+            @Html.ActionLink("Edit Payments", "Payments", new { id = Model.ClassRegID, IsPaymentEdit = true }, new { @class = "btn btn-primary", style = "min-width:75px" })
+            @Html.ActionLink("Print Invoice", "PrintInvoice", new { id = Model.ClassRegID }, new { target = "_blank", @class = "btn btn-warning", style = "min-width:75px" })
+        </div>
+    </p>
+
+    <div class="form-horizontal">
+       <br />
+       <div class="form-group">
+           @Html.LabelFor(model => model.PaymentReceiptNo, htmlAttributes: new { @class = "control-label col-md-2" })
+           <div class="col-md-4">
+               @Html.DetailsViewFor(model => model.PaymentReceiptNo)
+           </div>
+       </div>
+       <div class="form-group">
+           @Html.LabelFor(model => model.TotalAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+           <div class="col-md-4">
+               @Html.DetailsViewFor(model => model.TotalAmount)
+           </div>
+           @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label col-md-2" })
+           <div class="col-md-4">
+               @Html.DetailsViewFor(model => model.Remark)
+           </div>
+       </div>
+
+        <div id="ChildContent">
+            @{ Html.RenderAction("ChildPaymentIndex", new { id = Model.ClassRegID, isToEdit = false }); }
+        </div>
+        <br />
+        <br />
+        <div class="form-group">
+            @Html.LabelFor(model => model.StudentName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DetailsViewFor(model => model.StudentName)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ClassCode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DetailsViewFor(model => model.ClassCode)
+            </div>
+            @Html.LabelFor(model => model.SubjectName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DetailsViewFor(model => model.SubjectName)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DetailsViewFor(model => model.Description)
+            </div>
+            @Html.LabelFor(model => model.LecturerName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DetailsViewFor(model => model.LecturerName)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DetailsViewFor(model => model.Category)
+            </div>
+            @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DetailsViewFor(model => model.Type)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DateOfConduct, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DetailsViewFor(model => model.DateOfConduct)
+            </div>
+        </div>
+    </div>
+
+}
+<br />
+
+<p>
+    @Html.ActionLink("Back to Index", "Index", "StudentPayments")
+</p>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/studentreg/student")
+}
+
+
+
+

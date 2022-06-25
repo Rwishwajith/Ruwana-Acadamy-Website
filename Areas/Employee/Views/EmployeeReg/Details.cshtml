@@ -1,0 +1,86 @@
+﻿@model RuwanaAcademy_Enterprise.Areas.Employee.Models.EmployeeVM
+@{
+    ViewBag.Title = "Employee Details";
+}
+
+<hr style="border-color:black" />
+<br />
+
+@using (Html.BeginForm("Delete", "EmployeeReg"))
+{
+    @Html.HiddenFor(model => model.EmployeeID)
+    @Html.HiddenFor(model => model.RowVersion)
+    @Html.AntiForgeryToken()
+
+    <p>
+
+        <div class="btn-toolbar">
+            @Html.ActionLink("Edit", "Edit", new { id = Model.EmployeeID }, new { @class = "btn btn-primary", style = "min-width:75px" })
+            @Html.ConfirmSubmitButton("Delete", "Are you sure you want to delete?", "Confirm Cost Type deletion",
+                               "<span class='glyphicon glyphicon-trash'></span> Delete", new { @class = "btn btn-danger", style = "min-width:75px" })
+        </div>
+    </p>
+}
+<br />
+<div class="form-horizontal">
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DetailsViewFor(model => model.Title)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Initials, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DetailsViewFor(model => model.Title)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DetailsViewFor(model => model.FirstName)
+        </div>
+        @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DetailsViewFor(model => model.LastName)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DetailsViewFor(model => model.Address)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.NICNo, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DetailsViewFor(model => model.NICNo)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ContactNo, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DetailsViewFor(model => model.ContactNo)
+        </div>
+        @Html.LabelFor(model => model.Designation, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DetailsViewFor(model => model.Designation)
+        </div>
+    </div>
+</div>
+
+<br />
+
+<p>
+    @Html.ActionLink("Back to Index", "Index")
+</p>
+
+
+
+

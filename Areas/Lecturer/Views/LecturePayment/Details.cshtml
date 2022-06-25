@@ -1,0 +1,71 @@
+﻿@model RuwanaAcademy_Enterprise.Areas.Lecturer.Models.LecturePaymentVM
+@{
+    ViewBag.Title = "Payment Details";
+}
+
+<hr style="border-color:black" />
+<br />
+
+@using (Html.BeginForm("Delete", "LecturePayment"))
+{
+    @Html.HiddenFor(model => model.LecPaymentID)
+    @Html.HiddenFor(model => model.LecturerID)
+    @Html.HiddenFor(model => model.RowVersion)
+    @Html.HiddenFor(model => model.IsPaid)
+    @Html.AntiForgeryToken()
+
+    <p>
+
+        <div class="btn-toolbar">
+            @if (Model.IsPaid == "No")
+            {
+                @Html.ActionLink("Edit", "Edit", new { id = Model.LecPaymentID }, new { @class = "btn btn-primary", style = "min-width:75px" })
+
+                @Html.ConfirmSubmitButton("Delete", "Are you sure you want to delete?", "Confirm Cost Type deletion",
+                                            "<span class='glyphicon glyphicon-trash'></span> Delete", new { @class = "btn btn-danger", style = "min-width:75px" })
+                @Html.ActionLink("Print Invoice", "PrintInvoice", new { id = Model.LecPaymentID }, new { target = "_blank", @class = "btn btn-warning", style = "min-width:75px" })
+            }
+        </div>
+    </p>
+}
+<br />
+<div class="form-horizontal">
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PaymentReceiptNo, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DetailsViewFor(model => model.PaymentReceiptNo)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.LecturerID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.PopUpSelectorFor(model => model.LecturerID, "Base", "Data", "GetLecturer", new { @class = "form-control", @readonly = "readonly" }, "Please select a Lecturer.", dspFormat: "{1}", hiddenIndices: "0,5")
+            @Html.ValidationMessageFor(model => model.LecturerID, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DetailsViewFor(model => model.Remark)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.TotalAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DetailsViewFor(model => model.TotalAmount)
+        </div>
+    </div>
+</div>
+
+<div id="ChildContent">
+    @{ Html.RenderAction("ChildIndex", new { id = Model.LecPaymentID, isToEdit = false }); }
+</div>
+
+<br />
+
+<p>
+    @Html.ActionLink("Back to Index", "Index")
+</p>
+
+
+
+

@@ -1,0 +1,67 @@
+﻿@model RuwanaAcademy_Enterprise.Areas.Lecturer.Models.LecturerRateVM
+@{
+    ViewBag.Title = "Lecturer Rate Details";
+}
+
+<hr style="border-color:black" />
+<br />
+
+@using (Html.BeginForm("Delete", "LecturerRateReg"))
+{
+    @Html.HiddenFor(model => model.LecturerRateID)
+    @Html.HiddenFor(model => model.RowVersion)
+    @Html.AntiForgeryToken()
+
+    <p>
+
+        <div class="btn-toolbar">
+            @Html.ActionLink("Edit", "Edit", new { id = Model.LecturerID }, new { @class = "btn btn-primary", style = "min-width:75px" })
+            @Html.ConfirmSubmitButton("Delete", "Are you sure you want to delete?", "Confirm Cost Type deletion",
+                               "<span class='glyphicon glyphicon-trash'></span> Delete", new { @class = "btn btn-danger", style = "min-width:75px" })
+        </div>
+    </p>
+}
+<br />
+<div class="form-horizontal">
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.LecturerID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.PopUpSelectorFor(model => model.LecturerID, "Base", "Data", "GetLecturer", new { @class = "form-control", @readonly = "readonly" }, "Please select a Lecturer.", dspFormat: "{1}", hiddenIndices: "0,5")
+            @Html.ValidationMessageFor(model => model.LecturerID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.SubjectID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.PopUpSelectorFor(model => model.SubjectID, "Base", "Data", "GetSubject", new { @class = "form-control", @readonly = "readonly" }, "Please select a Subject.", dspFormat: "{1}", hiddenIndices: "0,5")
+            @Html.ValidationMessageFor(model => model.SubjectID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PaymentRate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DetailsViewFor(model => model.PaymentRate)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DetailsViewFor(model => model.Remark)
+        </div>
+    </div>
+
+</div>
+  
+<br/>
+
+<p>
+    @Html.ActionLink("Back to Index", "Index")
+</p>
+
+
+
+

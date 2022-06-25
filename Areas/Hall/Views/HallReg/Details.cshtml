@@ -1,0 +1,58 @@
+﻿
+@model RuwanaAcademy_Enterprise.Areas.Hall.Models.HallVM
+
+@{
+    ViewBag.Title = "Hall Details";
+}
+
+<div>
+
+    <hr style="border-color:black" />
+    <br />
+
+    @using (Html.BeginForm("Delete", "HallReg"))
+    {
+        @Html.HiddenFor(model => model.HallID)
+        @Html.HiddenFor(model => model.RowVersion)
+        @Html.AntiForgeryToken()
+        <p>
+            <div class="btn-toolbar">
+                @Html.ActionLink("Edit", "Edit", new { id = Model.HallID }, new { @class = "btn btn-primary", style = "min-width:75px" })
+                @Html.ConfirmSubmitButton("Delete", "Are you sure you want to delete?", "Confirm user deletion",
+                 "<span class='glyphicon glyphicon-trash'></span> Delete", new { @class = "btn btn-danger", style = "min-width:75px" })
+            </div>
+        </p>
+    }
+
+    <br />
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.HallName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.HallName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.HallName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HallDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.HallDescription, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.HallDescription, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StudentCapacity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StudentCapacity, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.StudentCapacity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+</div>
+<br />
+<div>
+    @Html.ActionLink("Back to Index Page", "Index")
+</div>

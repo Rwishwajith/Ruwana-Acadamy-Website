@@ -1,0 +1,103 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login - Ruwana Academy</title>
+
+    @Styles.Render("~/Content/bootstrap")
+    @Scripts.Render("~/bundles/modernizr")
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <link href="~/Content/LogIn/login.css" rel="stylesheet" />
+    @* @Scripts.Render("~/bundles/jqueryui")*@
+
+
+</head>
+<body>
+    @model RuwanaAcademy_Enterprise.Areas.Base.Models.SignInVM
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-8 " style="top:-50px; left:-70px">
+                <img src="@Url.Content("~/Content/Images/Ruwana_Academy_Logo.png")" class="img-responsive" style="width:800px" />
+            </div>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-signin col-lg-4" style="background-color: rgb(8, 89, 148 , 0.7);border-radius: 10px; top:130px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+                    <table style="width:100%">
+                        <tr>
+                            <td>
+                                <h2 class="form-signin-heading"><font color="white">Please sign in</font></h2>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <hr />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.LabelFor(model => model.UserName, "User Name", htmlAttributes: new { @class = "sr-only" })
+                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", placeholder = "User Name", required = true, autofocus = true } })
+                            </td>
+                        </tr>
+                        <tr><td>&nbsp;</td></tr>
+                        <tr>
+                            <td>
+                                @Html.LabelFor(model => model.PassWord, "Password", htmlAttributes: new { @class = "sr-only" })
+                                @Html.PasswordFor(model => model.PassWord, htmlAttributes: new { @class = "form-control", placeholder = "Password", required = true })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @{ Html.RenderPartial("~/Areas/Base/Views/Shared/_PartialAlert.cshtml"); }
+                            </td>
+                        </tr>
+                    </table>
+
+
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(model => model.RememberMe)<font color="white"> Remember me</font>
+                        </label>
+                    </div>
+                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Sign in" />
+                    <div class="row">
+                        <div style="top:-60px; font-size:12px; left:420px;">
+                            <table style="width:330px" border="0">
+                                <tr>
+
+                                    <td width="100%" valign="middle" align="center">
+                                        <div style="top:80px; font-size:15px; left:40px;">
+                                            <img src="@Url.Content("~/Content/Images/SkyBlue Logo.png")" style="width:150px; vertical-align:middle;" />
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div style="top:80px; font-size:15px; left:40px;">
+                                <p style="text-align:center"><font color="white">© SKYBLUE Software Team - 2020</font></p>
+                            </div>
+                            @*<div class="col-md-4 " style="top:100px; font-size:12px; left:90px;" align="right">
+                                </div>*@
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</body>
+</html>

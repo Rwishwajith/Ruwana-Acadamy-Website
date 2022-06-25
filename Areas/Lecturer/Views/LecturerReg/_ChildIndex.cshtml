@@ -1,0 +1,78 @@
+﻿@using RuwanaAcademy_Enterprise.Common
+@model IEnumerable<RuwanaAcademy_Enterprise.Areas.Lecturer.Models.LecturerRateVM>
+
+<br />
+<h4>Lecturer Rate Registrations</h4>
+
+<table class="mGrid">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.SubjectName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentRate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Remark)
+            </th>
+
+            @{
+                if (ViewBag.IsToEdit)
+                {
+                    <th class="btn-1">
+                        @Html.NoEncodeActionLink("<span style='color:white'>Add</span>", "Add Lecturer Rate Registration", "ChildCreate", routeValues: new { LecturerID = ViewBag.LecturerId }, htmlAttributes: new { data_popup_editor = "", @class = "btn btn-primary pull-right btn-sm", data_title = "Add Lecturer Rate Registration", data_popup_width = "600" })
+                    </th>
+                }
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.SubjectName)
+            </td>
+            <td>
+                @Html.EnumDisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentRate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Remark)
+            </td>
+
+            @{
+                if (ViewBag.IsToEdit)
+                {
+                    <td class="btn-3">
+                        <div class="btn-toolbar">
+                            @using (Html.BeginForm("ChildDelete", "LecturerReg", new { id = item.LecturerID }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.NoEncodeActionLink("<span class='glyphicon glyphicon-pencil' style='color:white'>Edit</span>", "Edit Lecturer Rate Registration", "ChildEdit", routeValues: new { id = item.LecturerRateID }, htmlAttributes: new { data_popup_editor = "", @class = "btn btn-success btn-sm", data_title = "Edit Lecturer Rate Registration", data_popup_width = "600" })
+                                @Html.ConfirmSubmitButton("<span class='glyphicon glyphicon-trash'>Delete</span>", "Are you sure you want to delete?", "Confirm Class Registration deletion", "<span class='glyphicon glyphicon-trash'></span> Delete", new { data_popup_delete = "", @class = "btn btn-danger btn-sm", style = "min-width:75px" })
+                            }
+                        </div>
+                    </td>
+                }
+            }
+        </tr>
+        }
+    </tbody>
+</table>
+
+@if (ViewBag.IsToEdit)
+{
+    Html.RenderPartial("~/Areas/Base/Views/Shared/_PartialAlert.cshtml");
+}
+
+
+

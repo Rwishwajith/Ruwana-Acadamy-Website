@@ -1,0 +1,57 @@
+﻿@model RuwanaAcademy_Enterprise.Areas.Class.Models.SubjectVM
+
+@{
+    ViewBag.Title = "Subject Details";
+}
+
+    <div>
+
+        <hr style="border-color:black" />
+        <br />
+
+        @using (Html.BeginForm("Delete", "SubjectReg"))
+        {
+            @Html.HiddenFor(model => model.SubjectID)
+            @Html.HiddenFor(model => model.RowVersion)
+            @Html.AntiForgeryToken()
+            <p>
+                <div class="btn-toolbar">
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.SubjectID }, new { @class = "btn btn-primary", style = "min-width:75px" })
+                    @Html.ConfirmSubmitButton("Delete", "Are you sure you want to delete?", "Confirm user deletion",
+                     "<span class='glyphicon glyphicon-trash'></span> Delete", new { @class = "btn btn-danger", style = "min-width:75px" })
+                </div>
+            </p>
+        }
+
+        <br />
+
+        <div class="form-horizontal">
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DetailsViewFor(model => model.Name)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DetailsViewFor(model => model.Category)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DetailsViewFor(model => model.Description)
+                </div>
+            </div>
+        </div>
+    </div>
+
+<br />
+<div>
+    @Html.ActionLink("Back to Index Page", "Index")
+</div>
+

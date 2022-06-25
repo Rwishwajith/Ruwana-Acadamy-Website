@@ -1,0 +1,195 @@
+﻿@using RuwanaAcademy_Enterprise.Common
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Ruwana Academy</title>
+    @{
+        var currentArea = ViewContext.RouteData.DataTokens["area"];
+        if (currentArea != null)
+        { currentArea += "/"; }
+    }
+
+    <link href=@Url.Content("~/Content/themes/base/all.css") rel="stylesheet" />
+    @Styles.Render("~/Content/jqueryuitimepicker")
+    @Styles.Render("~/Content/bootstrap")
+    @Styles.Render("~/Content/custom")
+    @RenderSection("styles", required: false)
+
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/chart")
+
+    <script type="text/javascript">
+        var AppRoot = "@Url.Content("~/")";
+
+        $(function () {
+            $('ul.dropdown-menu [data-toggle=dropdown]').on('click', function (event) {
+                // Avoid following the href location when clicking
+                event.preventDefault();
+                // Avoid having the menu to close when clicking
+                event.stopPropagation();
+
+                $(this).parentsUntil('.dropdown.open').find('.open').removeClass('open');
+
+                // Re-add .open to parent sub-menu item
+                $(this).parentsUntil('.dropdown.open', 'li.dropdown, li.dropdown-submenu').addClass('open');
+            });
+
+            $("li[role='menuitem']").click(function (e) {
+                $(this).parentsUntil('.dropdown.open').find('.open').removeClass('open');
+            });
+        });
+    </script>
+    <style>
+        /* The side navigation menu */
+        .sidenav {
+            height: 100%; /* 100% Full-height */
+            width: 0; /* 0 width - change this with JavaScript */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Stay on top */
+            top: 0; /* Stay at the top */
+            left: 0;
+            /*background-color: dimgrey;*/ /* Black*/
+            overflow-x: hidden; /* Disable horizontal scroll */
+            padding-top: 60px; /* Place content 60px from the top */
+            transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+        }
+
+            /* The navigation menu links */
+            .sidenav a {
+                padding: 8px 8px 8px 32px;
+                text-decoration: none;
+                font-size: 15px;
+                color: Highlight;
+                display: compact;
+                transition: 0.3s;
+            }
+
+                /* When you mouse over the navigation links, change their color */
+                .sidenav a:hover {
+                    color: lightgoldenrodyellow;
+                }
+
+            /* Position and style the close button (top right corner) */
+            .sidenav .closebtn {
+                position: absolute;
+                top: 40px;
+                right: 10px;
+                font-size: 36px;
+                margin-left: 50px;
+            }
+
+        /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+        #main {
+            transition: margin-left .5s;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+    </style>
+
+</head>
+<body style="background-color: rgba(73, 0, 255, 0.1)" onload="openNav()">
+    <div id="mySidenav" class="sidenav navbar-inverse">
+        @*<input type="button" class="btn-info pull-right" onclick="closeNav()" value="&times;" style="background-color:black" />*@
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <br />
+        <br />
+        <br />
+        @Html.Partial("~/Areas/Base/Views/Shared/_PartialMenu.cshtml")
+    </div>
+    <div id="main">
+        <div id="dspProgress" style="display:none">
+            <div id="dspProgressBackgroundFilter">
+            </div>
+            <div id="dspProgressMessage">
+                <img height="100" width="100" />
+            </div>
+        </div>
+        <div class="navbar navbar-fixed-top navbar-inverse" style="background-color: darkslateblue">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <span id="aaa" class=" navbar-brand glyphicon glyphicon-menu-hamburger" onclick="openNav()"></span><font color="white">@Html.ActionLink("Ruwana Academy", "Home", "DashBoard", new { area = "Base" }, new { @class = "navbar-brand" })</font>
+            </div>
+
+            <div class="navbar-collapse collapse">
+                @Html.Partial("~/Areas/Base/Views/Shared/_SignInPartial.cshtml")
+            </div>
+        </div>
+        @if (ViewBag.DashBoardAction != null)
+        {
+            <div class="container-fluid body-content">
+                @GetDashBoardLinks(ViewBag.DashBoardAction)
+                @RenderBody()
+                <hr />
+            </div>
+        }
+        else
+        {
+            <div class="container body-content">
+                <h2>@ViewBag.Title</h2>
+                @{ Html.RenderPartial("~/Areas/Base/Views/Shared/_PartialAlert.cshtml", new ViewDataDictionary { { "OnTop", true } }); }
+                @RenderBody()
+                @{ Html.RenderPartial("~/Areas/Base/Views/Shared/_PartialAlert.cshtml", new ViewDataDictionary { { "OnTop", false } }); }
+                <hr />
+                <footer class="navbar-fixed-bottom navbar-inverse">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="@Url.Content("~/Content/Images/SkyBlue Logo.png")" style="width:60px;" />
+                    <p style="color:white" class="pull-right">
+                        © SKYBLUE Software Team - 2020&nbsp;&nbsp;&nbsp;
+                    </p>
+                </footer>
+            </div>
+        }
+    </div>
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/custom")
+    @RenderSection("scripts", required: false)
+
+    <script>
+        /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
+        //var i = false;
+        //$('aaa').click(function(e){
+        //    openNav() }
+        //});
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "180px";
+        }
+
+        /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+        }
+
+    </script>
+</body>
+</html>
+
+@helper GetDashBoardLinks(string curDashBaord)
+{
+var dashBoards = new Dictionary<string, string>();
+<p>
+    <div class="btn-toolbar">
+        @foreach (var dashBoard in dashBoards)
+        {
+            if (dashBoard.Key.Equals(curDashBaord, StringComparison.CurrentCultureIgnoreCase))
+            {
+                @Html.ActionLink(dashBoard.Value, dashBoard.Key, null, new { @class = "btn btn-primary", style = "min-width:75px" })
+            }
+            else
+            {
+                @Html.ActionLink(dashBoard.Value, dashBoard.Key, null, new { @class = "btn btn-default", style = "min-width:75px" })
+            }
+        }
+    </div>
+</p>
+}

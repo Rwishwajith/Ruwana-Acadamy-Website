@@ -1,0 +1,93 @@
+﻿@using RuwanaAcademy_Enterprise.Common
+@model IEnumerable<RuwanaAcademy_Enterprise.Areas.Student.Models.StudentPaymentDetailVM>
+
+<br />
+<h4>Payment Details</h4>
+
+
+@if (ViewBag.isDetail && ViewBag.haveUnpaid > 0)
+{
+   <h5 style="color:blue">Student have unpaid invoices. Please proceed with the Add Payment option and print the incoices first.</h5>
+
+
+<div>
+    <table>
+        <tr>
+            <td><label>Unpaid Payments :</label></td>
+            <td style="position: relative;width: 10px;"></td>
+            <td style="background: #c6eaf4 ; position: relative;width: 20px;height: 5px;border: 1px solid #dddddd"></td>
+            <td style="position: relative;width: 20px;height: 10px;"></td>
+        </tr>
+    </table>
+</div>
+}
+<table id="tblPayments" class="mGrid">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaidMonth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            @{
+                if (ViewBag.IsToEdit)
+                {
+                    <th class="btn-1">
+                        @Html.NoEncodeActionLink("<span style='color:white'>Add</span>", "Add Payment", "ChildPaymentCreate", routeValues: new { ClassRegID = ViewBag.ClassRegID }, htmlAttributes: new { data_popup_editor = "", @class = "btn btn-primary pull-right btn-sm", data_title = "Add Payment", data_popup_width = "600" })
+                    </th>
+                }
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            var col = "";
+            //if (item.LecDate < DateTime.Today)
+            //{ col = "#c6eaf4"; }
+            //else
+            //{
+            if (ViewBag.isDetail && !item.Paid)
+            { col = "#c6eaf4"; };
+            <tr style="@(col.IsBlank() ? "" : ("background:" + col + " !important"))">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaidMonth)
+                </td>
+                <td id="payamount">
+                    @Html.DisplayFor(modelItem => item.Amount)
+                    @Html.HiddenFor(modelItem => item.Amount)
+                </td>
+                @{
+                    if (ViewBag.IsToEdit)
+                    {
+                        <td class="btn-3">
+                            <div class="btn-toolbar">
+                                @using (Html.BeginForm("ChildPaymentDelete", "StudentReg", new { id = item.StudPayDetailsID }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.NoEncodeActionLink("<span class='glyphicon glyphicon-pencil' style='color:white'>Edit</span>", "Edit Payment", "ChildPaymentEdit", routeValues: new { id = item.StudPayDetailsID }, htmlAttributes: new { data_popup_editor = "", @class = "btn btn-success btn-sm", data_title = "Edit Class Registration", data_popup_width = "600" })
+                                    @Html.ConfirmSubmitButton("<span class='glyphicon glyphicon-trash'>Delete</span>", "Are you sure you want to delete?", "Confirm Class Registration deletion", "<span class='glyphicon glyphicon-trash'></span> Delete", new { data_popup_delete = "", @class = "btn btn-danger btn-sm", style = "min-width:75px" })
+                                }
+                            </div>
+                        </td>
+                    }
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (ViewBag.IsToEdit)
+{
+    Html.RenderPartial("~/Areas/Base/Views/Shared/_PartialAlert.cshtml");
+}
+
+
+

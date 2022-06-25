@@ -1,0 +1,102 @@
+﻿@model RuwanaAcademy_Enterprise.Areas.Student.Models.StudentVM
+@{
+    ViewBag.Title = "Student Details";
+}
+
+<hr style="border-color:black" />
+<br />
+
+@using (Html.BeginForm("Delete", "StudentReg"))
+{
+    @Html.HiddenFor(model => model.StudentID)
+    @Html.HiddenFor(model => model.RowVersion)
+    @Html.AntiForgeryToken()
+
+    <p>
+
+        <div class="btn-toolbar">
+            @Html.ActionLink("Edit", "Edit", new { id = Model.StudentID }, new { @class = "btn btn-primary", style = "min-width:75px" })
+            @Html.ConfirmSubmitButton("Delete", "Are you sure you want to delete?", "Confirm Cost Type deletion",
+                               "<span class='glyphicon glyphicon-trash'></span> Delete", new { @class = "btn btn-danger", style = "min-width:75px" })
+        </div>
+    </p>
+}
+<br />
+<div class="form-horizontal">
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.RFID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DetailsViewFor(model => model.RFID)
+        </div>
+        @Html.LabelFor(model => model.StudCategory, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EnumEditorFor(model => model.StudCategory, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+            @Html.ValidationMessageFor(model => model.StudCategory, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Initials, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DetailsViewFor(model => model.Initials)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DetailsViewFor(model => model.FirstName)
+        </div>
+        @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DetailsViewFor(model => model.LastName)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EnumEditorFor(model => model.Gender, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control", type = "JQ-date", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DetailsViewFor(model => model.Address)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.GuardianName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DetailsViewFor(model => model.GuardianName)
+        </div>
+        @Html.LabelFor(model => model.ContactNo, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DetailsViewFor(model => model.ContactNo)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.SchoolName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DetailsViewFor(model => model.SchoolName)
+        </div>
+    </div>
+</div>
+
+<div id="ChildContent">
+    @{ Html.RenderAction("ChildIndex", new { id = Model.StudentID, isToEdit = false }); }
+</div>
+
+<br/>
+
+<p>
+    @Html.ActionLink("Back to Index", "Index")
+</p>
+
+
+
+
